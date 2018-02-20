@@ -10,36 +10,32 @@ if(mysqli_connect_errno()){
 
 $query = "SELECT * FROM list ;";
 
-$info = mysqli_query($conn, $query);
-
 $act = $_GET["del"];
 echo "$act";
-if( $act ){
+if( isset($act) ){
     echo "$act";
 	$queryDel = "DELETE FROM list WHERE id = $act; ";
 	mysqli_query($conn, $queryDel); 
 } 
-//print_r($info);
+if( isset($_POST['name'])){
+	$queryAdd = "INSERT INTO list (name, age, salary) VALUES ('" . $_POST['name'] ."', " .$_POST['age'] .", " .$_POST['salary'] .")  ;";
+	mysqli_query($conn, $queryAdd);
+
+}
+
+$info = mysqli_query($conn, $query);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<style>
-	table{
-		border-collapse: collapse;
-		font-size: 18px;
-	}
-	td{
-		border: 1px solid gray;		
-		margin: 0;
-		padding: 10px;
-	}
-</style>
+	<link rel="stylesheet" type="text/css" href="css/test2.css">
 </head>
 <body>
 	<table>
+
 		<tr>
 			<th>ID</th>
 			<th>name</th>
@@ -61,6 +57,12 @@ if( $act ){
 		}
 		?>
 	</table>	
+	<form action="test2.php" method="POST">
+		<div><input type="text" name="name" placeholder="Имя"></div>
+		<div><input type="text" name="age" placeholder="Возраст"></div>
+		<div><input type="text" name="salary" placeholder="Зарплата"></div>
+		<div><button>Добавить</button></div>
+	</form>
 
 	
 </body>
