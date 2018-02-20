@@ -10,14 +10,14 @@ if(mysqli_connect_errno()){
 
 $query = "SELECT * FROM list ;";
 
-$act = $_GET["del"];
-echo "$act";
-if( isset($act) ){
-    echo "$act";
-	$queryDel = "DELETE FROM list WHERE id = $act; ";
+if( isset($_GET['del']) ){
+
+	$queryDel = "DELETE FROM list WHERE id = " . $_GET['del']  ;
 	mysqli_query($conn, $queryDel); 
 } 
+
 if( isset($_POST['name'])){
+
 	$queryAdd = "INSERT INTO list (name, age, salary) VALUES ('" . $_POST['name'] ."', " .$_POST['age'] .", " .$_POST['salary'] .")  ;";
 	mysqli_query($conn, $queryAdd);
 
@@ -34,36 +34,60 @@ $info = mysqli_query($conn, $query);
 	<link rel="stylesheet" type="text/css" href="css/test2.css">
 </head>
 <body>
+	<form action="test2.php" method="GET">
+		<p>Что бы узнать работников с интересующей зарплатой, введить сумму:</p>
+		<div><input type="text" placeholder="Сумма" name="find"></div>
+		<div><button>Запрос</button></div>
+	</form>
+	<?php
+
+
+	if( isset( $_GET['find'] ) ){
+		$queryFind = " SELECT * FROM list WHERE salary = " . $_GET['find'] ;
+		$found = mysqli_query($conn, $queryFind);
+		echo "<table>";
+		
+		while( $person = mysqli_fetch_assoc($found) ){
+			echo "<tr>";
+			foreach ($person as $key => $value) {
+				echo "<td> $value </td>";	
+			}		
+			echo "</tr>";	
+		}
+		
+		echo "</table>";
+	}
+	?>
 	<table>
 
-		<tr>
-			<th>ID</th>
-			<th>name</th>
-			<th>age</th>
-			<th>salary</th>
-			<th>remove</th>
+	<tr>
+	<th>ID</th>
+	<th>name</th>
+	<th>age</th>
+	<th>salary</th>
+	<th>remove</th>
 
-		</tr>
-		<?php
-		while( $elem = mysqli_fetch_assoc($info) ){
-			
-			echo "<tr>";
-			foreach ($elem as $key => $value) {
-				echo "<td> $value </td>";
-				$id = $elem['id'];
-			}
-			echo"<td><a href='test2.php?del=$id'>Удалить</a></td>";
-			echo "</tr>";
+	</tr>
+	<?php
+	while( $elem = mysqli_fetch_assoc($info) ){
+
+		echo "<tr>";
+		foreach ($elem as $key => $value) {
+			echo "<td> $value </td>";
+			$id = $elem['id'];
 		}
-		?>
+		echo"<td><a href='test2.php?del=$id'>Удалить</a></td>";
+		echo "</tr>";
+	}
+	?>
 	</table>	
 	<form action="test2.php" method="POST">
-		<div><input type="text" name="name" placeholder="Имя"></div>
-		<div><input type="text" name="age" placeholder="Возраст"></div>
-		<div><input type="text" name="salary" placeholder="Зарплата"></div>
-		<div><button>Добавить</button></div>
+	<div><input type="text" name="name" placeholder="Имя"></div>
+	<div><input type="text" name="age" placeholder="Возраст"></div>
+	<div><input type="text" name="salary" placeholder="Зарплата"></div>
+	<div><button>Добавить</button></div>
 	</form>
 
 	
-</body>
-</html>
+	</body>
+	</html>
