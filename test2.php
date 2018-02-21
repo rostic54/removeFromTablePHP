@@ -20,7 +20,7 @@ if( isset($_POST['name'])){
 
 	$queryAdd = "INSERT INTO list (name, age, salary) VALUES ('" . $_POST['name'] ."', " .$_POST['age'] .", " .$_POST['salary'] .")  ;";
 	mysqli_query($conn, $queryAdd);
-
+	header("http://127.0.0.1/localhost/PHP_Start/test2.php");
 }
 
 $info = mysqli_query($conn, $query);
@@ -34,8 +34,9 @@ $info = mysqli_query($conn, $query);
 	<link rel="stylesheet" type="text/css" href="css/test2.css">
 </head>
 <body>
-	<form action="test2.php" method="GET">
-		<p>Что бы узнать работников с интересующей зарплатой, введить сумму:</p>
+	<div class="search-block">
+	<form action="test2.php" class="search" method="GET">
+		<h4>Что бы узнать работников с интересующей зарплатой, введить сумму:</h4>
 		<div><input type="text" placeholder="Сумма" name="find"></div>
 		<div><button>Запрос</button></div>
 	</form>
@@ -45,7 +46,7 @@ $info = mysqli_query($conn, $query);
 	if( isset( $_GET['find'] ) ){
 		$queryFind = " SELECT * FROM list WHERE salary = " . $_GET['find'] ;
 		$found = mysqli_query($conn, $queryFind);
-		echo "<table>";
+		echo "<table class='matches'>";
 		
 		while( $person = mysqli_fetch_assoc($found) ){
 			echo "<tr>";
@@ -58,6 +59,7 @@ $info = mysqli_query($conn, $query);
 		echo "</table>";
 	}
 	?>
+	</div>
 	<table>
 
 	<tr>
