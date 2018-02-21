@@ -1,8 +1,30 @@
+body{
+	text-align: center;
+}
 table{
 	border-collapse: collapse;
 	font-size: 18px;
-	margin-bottom: 30px;
-	margin-top: 30px;
+	margin: 30px auto;
+}
+
+.table-btn button{
+	background-color: #e85b5b;
+	border: 1px solid gray;
+	border-radius: 5px;
+	font-size: 14px;
+	padding: 5px;
+	margin-bottom: 2px;
+}
+.table-btn button:hover{
+	background-color: #a20404;
+	color: white;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 0;
+}
+.search-block{
+	text-align: center;
 }
 td{
 	border: 1px solid gray;		
