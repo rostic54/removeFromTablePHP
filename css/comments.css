@@ -1,0 +1,37 @@
+section{
+	max-width: 700px;
+	margin: 0 auto;
+}
+h2{
+	text-align: center;
+	font-size: 35px;
+	font-family: sans-serif;
+}
+form{
+	padding: 30px 0;
+}
+.success{
+	background-color: #d9edf7;
+	color: #54a5d9;
+}
+.success:empty{
+	display: none;
+}
+
+input,
+textarea,
+button{
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	box-sizing: border-box;
+	border: 2px solid lightgray;
+	color: lightgray;
+}
+
+button{
+	background-color: #5ac0de;
+	color: white;
+	border-color: #46b8da;
+}
